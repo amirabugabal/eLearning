@@ -13,11 +13,11 @@ import Colors from '../Utils/Colors';
 import TrainingScreen from '../Screens/TrainingScreen';
 import LibraryScreen from '../Screens/LibraryScreen';
 import SettingsScreen from '../Screens/SettingsScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import TrainingKeywords from '../Components/Training/TrainingKeywords';
 
 const Tab = createBottomTabNavigator();
-
 export default function TabNavigation() {
-
   return (
     <Tab.Navigator screenOptions={{
         headerShown:false,
