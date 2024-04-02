@@ -30,19 +30,19 @@ export default function Header(props) {
         </View>
       <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: '150%'}}>
             <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit', width: '50%'}}>Word Training</Text>
-            <TouchableOpacity onPress={()=>setModalVisible(true)}><FontAwesomeIcon icon="circle-info" style={{width: '50%', fontSize: 20, fontWeight: 600}}/></TouchableOpacity>
+            <TouchableOpacity onPress={()=>setModalVisible(true)}><FontAwesomeIcon icon="circle-info" style={{width: '50%', fontSize: 20, fontWeight: 600,fontFamily:'outfit'}}/></TouchableOpacity>
       </View>
       <View style={{marginTop: 50,display:'flex',flexDirection:'column',alignItems:'center',gap:20}}>
-        <TouchableOpacity style={styles.easyButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>Easy</Text><Text style={styles.easyText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.easyText}></FontAwesomeIcon></TouchableOpacity>
-        <TouchableOpacity style={styles.mediumButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>Medium</Text><Text style={styles.mediumText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.mediumText}></FontAwesomeIcon></TouchableOpacity>
-        <TouchableOpacity style={styles.hardButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>Hard</Text><Text style={styles.hardText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.hardText}></FontAwesomeIcon></TouchableOpacity>
+        <TouchableOpacity style={styles.easyButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Easy</Text><Text style={styles.easyText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.easyText}></FontAwesomeIcon></TouchableOpacity>
+        <TouchableOpacity style={styles.mediumButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Medium</Text><Text style={styles.mediumText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.mediumText}></FontAwesomeIcon></TouchableOpacity>
+        <TouchableOpacity style={styles.hardButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Hard</Text><Text style={styles.hardText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.hardText}></FontAwesomeIcon></TouchableOpacity>
       </View>
       <View style ={{marginTop: 10, display:'flex', flexDirection: 'row', gap: 10}}>
         <TouchableOpacity style={styles.newButton} onPress={()=>props.navigation.navigate('TrainingKeywords')}><FontAwesomeIcon icon="calendar"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>New</Text><Text style={styles.easyText}>0</Text></TouchableOpacity>
         <TouchableOpacity style ={styles.newButton}><FontAwesomeIcon icon="check"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>Done</Text><Text style={styles.easyText}>10</Text></TouchableOpacity>
       </View>
       <View style ={{marginTop: 10, display:'flex', flexDirection: 'row', gap: 10}}>
-        <TouchableOpacity style={styles.reviewButton}><Text style={{width: '100%', textAlign: 'center', color: Colors.white, fontSize: 15, fontWeight: '500'}}>Review Now ></Text></TouchableOpacity>
+        <TouchableOpacity style={styles.reviewButton}><Text style={{width: '100%', textAlign: 'center', color: Colors.white, fontSize: 15, fontWeight: '500'}}>Review Now </Text></TouchableOpacity>
       </View>
     </View>
   )

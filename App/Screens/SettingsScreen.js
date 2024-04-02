@@ -6,5 +6,5 @@ export default function SettingsScreen() {
     <View>
       <Text>SettingsScreen</Text>
     </View>
-  )
+  ) 
 }

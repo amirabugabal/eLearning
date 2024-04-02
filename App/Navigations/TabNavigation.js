@@ -23,7 +23,8 @@ export default function TabNavigation() {
         headerShown:false,
         tabBarActiveTintColor: Colors.lightPrimary,
         tabBarIconStyle:{backgroundColor:Colors.lightPrimary},
-        tabBarStyle:{borderTopLeftRadius: 20,borderTopRightRadius: 20}
+        tabBarStyle:{borderTopLeftRadius: 20,borderTopRightRadius: 20},
+        
         
     }}>
       <Tab.Screen name="Home" component={HomeScreen} 
