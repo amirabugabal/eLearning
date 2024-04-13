@@ -7,13 +7,13 @@ import TabNavigation from './App/Navigations/TabNavigation';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import TrainingKeywords from './App/Components/Training/TrainingKeywords';
-import { createStackNavigator } from '@react-navigation/stack';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     'outfit': require('./assets/fonts/Outfit-Regular.ttf'),
@@ -24,9 +24,8 @@ export default function App() {
   // in App.js
 
 
-library.add(faInfoCircle, faCalendar, faAngleRight, faCheck, faHeart, faCircleCheck, faDumbbell)
+library.add(faInfoCircle, faCalendar, faAngleLeft, faCheck, faHeart, faCircleCheck, faDumbbell, faPlay)
   return (
-    
       <NavigationContainer>
         <TabNavigation />
       </NavigationContainer>

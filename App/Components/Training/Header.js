@@ -2,10 +2,12 @@ import { View, Text,Image, Button, Pressable, StyleSheet, TouchableOpacity, Moda
 import React, { useState } from 'react'
 import Colors from '../../Utils/Colors'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-export default function Header(props) {
+import { useNavigation } from '@react-navigation/native';
+export default function Header() {
+  const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={{marginTop:50,padding:20}}>
+    <View style={{marginTop:50,padding:20, direction: "rtl"}}>
     <View style={styles.centeredView}>
         <Modal
           animationType="slide"
@@ -28,21 +30,33 @@ export default function Header(props) {
           </View>
         </Modal>
         </View>
-      <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: '150%'}}>
-            <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit', width: '50%'}}>Word Training</Text>
-            <TouchableOpacity onPress={()=>setModalVisible(true)}><FontAwesomeIcon icon="circle-info" style={{width: '50%', fontSize: 20, fontWeight: 600,fontFamily:'outfit'}}/></TouchableOpacity>
+      <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: '150%', justifyContent:'space-between'}}>
+            <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit'}}>تدريب الكلمات الدالة</Text>
+            <TouchableOpacity onPress={()=>setModalVisible(true)}><FontAwesomeIcon icon="circle-info" style={{ fontSize: 20, fontWeight: 600,fontFamily:'outfit'}}/></TouchableOpacity>
       </View>
       <View style={{marginTop: 50,display:'flex',flexDirection:'column',alignItems:'center',gap:20}}>
-        <TouchableOpacity style={styles.easyButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Easy</Text><Text style={styles.easyText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.easyText}></FontAwesomeIcon></TouchableOpacity>
-        <TouchableOpacity style={styles.mediumButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Medium</Text><Text style={styles.mediumText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.mediumText}></FontAwesomeIcon></TouchableOpacity>
-        <TouchableOpacity style={styles.hardButton}><Text style={{width: '33%', fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>Hard</Text><Text style={styles.hardText}>0 Words</Text><FontAwesomeIcon icon="angle-right" style={styles.hardText}></FontAwesomeIcon></TouchableOpacity>
+        <TouchableOpacity style={styles.easyButton}>
+          <Text style={{fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>سهل</Text>
+          <Text style={styles.easyText}>0 كلمات</Text>
+          <FontAwesomeIcon icon="angle-left" style={styles.easyText}></FontAwesomeIcon>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.mediumButton}>
+          <Text style={{ fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>متوسط</Text>
+          <Text style={styles.mediumText}>0 كلمات</Text>
+          <FontAwesomeIcon icon="angle-left" style={styles.mediumText}></FontAwesomeIcon>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.hardButton}>
+          <Text style={{ fontSize: 18, fontWeight: '500',fontFamily:'outfit'}}>صعب</Text>
+          <Text style={styles.hardText}>0 كلمات</Text>
+          <FontAwesomeIcon icon="angle-left" style={styles.hardText}></FontAwesomeIcon>
+          </TouchableOpacity>
       </View>
       <View style ={{marginTop: 10, display:'flex', flexDirection: 'row', gap: 10}}>
-        <TouchableOpacity style={styles.newButton} onPress={()=>props.navigation.navigate('TrainingKeywords')}><FontAwesomeIcon icon="calendar"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>New</Text><Text style={styles.easyText}>0</Text></TouchableOpacity>
-        <TouchableOpacity style ={styles.newButton}><FontAwesomeIcon icon="check"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>Done</Text><Text style={styles.easyText}>10</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.newButton} onPress={()=>navigation.navigate('TrainingKeywords')}><FontAwesomeIcon icon="calendar"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>جديد</Text><Text style={styles.easyText}>0</Text></TouchableOpacity>
+        <TouchableOpacity style ={styles.newButton}><FontAwesomeIcon icon="check"></FontAwesomeIcon><Text style={{width: '33%', fontSize: 18, fontWeight: '500'}}>تم</Text><Text style={styles.easyText}>10</Text></TouchableOpacity>
       </View>
       <View style ={{marginTop: 10, display:'flex', flexDirection: 'row', gap: 10}}>
-        <TouchableOpacity style={styles.reviewButton}><Text style={{width: '100%', textAlign: 'center', color: Colors.white, fontSize: 15, fontWeight: '500'}}>Review Now </Text></TouchableOpacity>
+        <TouchableOpacity style={styles.reviewButton}><Text style={{width: '100%', textAlign: 'center', color: Colors.white, fontSize: 15, fontWeight: '500'}}>مراجعة </Text></TouchableOpacity>
       </View>
     </View>
   )
@@ -61,11 +75,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         backgroundColor: '#bdf0bd',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'space-between'
     },
     easyText: {
         fontSize: 20,
-        flexBasis: 140,
         color: '#8FBC8F'
     }, 
     mediumButton:{
@@ -75,13 +89,12 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         backgroundColor: '#bee6ed',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'space-between'
+
     },
     mediumText: {
-
-        width: '33%',
         fontSize: 20,
-        flexBasis: 140,
         color: '#60879c'
     },
     hardButton:{
@@ -91,24 +104,22 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         backgroundColor: '#dcc1e0',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'space-between'
     },
     hardText: {
-
-        width: '33%',
         fontSize: 20,
-        flexBasis: 140,
         color: '#9b6ca3'
     },
     newButton :{
         flexDirection: 'row',
         padding: 20,
         alignItems: 'center',
-        width: '48.8%',
+          width: '48.8%',
         height: 80,
-        gap: '33%',
         backgroundColor: 'lightgrey',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent:'space-between'
     },
     reviewButton :{
         flexDirection: 'column',

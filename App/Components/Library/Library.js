@@ -5,26 +5,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 export default function Library() {
   return (
     
-    <View style={{marginTop:50,padding:20}}>
+    <View style={{marginTop:50,padding:20,direction: "rtl"}}>
       <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: '150%'}}>
-            <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit', width: '50%'}}>My Library</Text>
+            <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit'}}>مكتبتي</Text>
       </View>
       <View style={{marginTop: 50,display:'flex',flexDirection:'column',alignItems:'center',gap:20}}>
         <TouchableOpacity style={styles.easyButton}>
             <FontAwesomeIcon icon ='heart' size={25} color={'#8FBC8F'}></FontAwesomeIcon>
-            <View style={{display: 'flex', flexDirection:'column', gap: 10, width:"auto", flexGrow:1}}>
-            <Text style={{width: '100%', fontSize: 18, fontWeight: '500'}}>Favorites</Text>
-            <Text style={styles.easyText}>0 items</Text>
+            <View style={{display: 'flex', flexDirection:'column', gap:10}}>
+            <Text style={{width: '100%', fontSize: 18, fontWeight: '500'}}>المفضلة</Text>
+            <Text style={styles.easyText}>0 اغراض</Text>
             </View>
-            <FontAwesomeIcon icon="angle-right" style={styles.easyText}></FontAwesomeIcon>
+            <FontAwesomeIcon icon="angle-left" style={{color: 'grey'}}></FontAwesomeIcon>
             </TouchableOpacity>
         <TouchableOpacity style={styles.mediumButton}>
             <FontAwesomeIcon icon= 'circle-check' size={25} color={'#8FBC8F'}></FontAwesomeIcon>
-            <View style={{display: 'flex', flexDirection:'column', gap: 10, width:"auto", flexGrow:1}}>
-            <Text style={{width: '100%', fontSize: 18, fontWeight: '500'}}>Learned Stories</Text>
-            <Text style={styles.mediumText}>0 items</Text>
+            <View style={{display: 'flex', flexDirection:'column', gap: 10}}>
+            <Text style={{width: '100%', fontSize: 18, fontWeight: '500'}}>الدروس المتعلمة</Text>
+            <Text style={styles.mediumText}>0 اغراض</Text>
             </View>
-            <FontAwesomeIcon icon="angle-right" style={styles.mediumText}></FontAwesomeIcon>
+            <FontAwesomeIcon icon="angle-left" style={styles.mediumText}></FontAwesomeIcon>
         </TouchableOpacity>
       </View>
     </View>
@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         backgroundColor: 'lightgrey',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent: 'space-between'
     },
     easyText: {
-        width: 'auto',
+        width: '100%',
         fontSize: 20,
-        color: 'grey'
+        color: 'grey',
     }, 
     mediumButton:{
         flexDirection: 'row',
@@ -58,15 +59,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         height: 80,
-        gap: 20,
         backgroundColor: 'lightgrey',
-        borderRadius: 10
+        borderRadius: 10,
+        justifyContent: 'space-between'
     },
     mediumText: {
 
-        width: '100%',
+        width: 'auto',
         fontSize: 20,
-        color: 'grey'
+        color: 'grey',
+        textAlign:'center'
     },
     hardButton:{
         flexDirection: 'row',
