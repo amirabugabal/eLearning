@@ -19,9 +19,9 @@ export default function App() {
         </View>
         <View style={styles.text_container}>
           <Text style={styles.card_title}>
-            dsajdnsjadn djsandjsan iaijwekjed
+          تعود العقابيات إلى أيرلندا بعد 200 عام
           </Text>
-          <Text style={styles.card_desc}>dasdnasdjnsajdnasjdnsadjnjsda</Text>
+          <Text style={styles.card_desc}>وُلدت صغار العقاب في أيرلندا لأول مرة منذ أكثر من 200 عام.</Text>
         </View>
       </View>
     </View>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   card_desc: {
     color: Colors.black,
     fontFamily: "outfitLight",
-    fontSize: 12,
+    fontSize: 11,
     padding: 2,
   },
   card_level: {

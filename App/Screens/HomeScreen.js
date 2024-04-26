@@ -5,8 +5,11 @@ import StoriesCard from "../Components/HomeScreen/storiesCard";
 import LevelsCard from "../Components/HomeScreen/levelsCard";
 
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+  
   return (
     <View>
       <Header />
@@ -15,7 +18,8 @@ export default function HomeScreen() {
           display: "flex",
           flexDirection: "row",
           gap: 7,
-          left: "4%",
+          justifyContent: "flex-end",
+          right: "1%",
         }}
       >
         <Text
@@ -24,21 +28,24 @@ export default function HomeScreen() {
             fontSize: 17,
           }}
         >
-          Free Stories
+          قصص مجانية
         </Text>
         <Ionicons name="gift-outline" size={19} color="black" />
       </View>
-      <View style={{ marginTop: "5%" }}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 10, gap: 12 }}
+        <View
+          style={{ marginTop: "5%" }}
+          
         >
-          {[...Array(10)].map((_, index) => (
-            <StoriesCard key={index} />
-          ))}
-        </ScrollView>
-      </View>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{ paddingHorizontal: 10, gap: 12 }}
+          >
+            {[...Array(10)].map((_, index) => (
+              <StoriesCard key={index} onPress={() => navigation.navigate("LessonScreen")} />
+            ))}
+          </ScrollView>
+        </View>
       <View style={{ marginTop: "5%" }}>
         <ScrollView
           horizontal={false}
