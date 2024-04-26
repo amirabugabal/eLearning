@@ -5,11 +5,13 @@ import Constants from "expo-constants";
 // You can import from local files
 import pic from "../../../assets/Images/test.png";
 import Colors from "../../Utils/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 // or any pure javascript modules available in npm
 // import { Card } from "react-native-paper";
 
-export default function App() {
+export default function App(props) {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.card_template}>
@@ -19,9 +21,9 @@ export default function App() {
         </View>
         <View style={styles.text_container}>
           <Text style={styles.card_title}>
-          تعود العقابيات إلى أيرلندا بعد 200 عام
+            {props?.title}
           </Text>
-          <Text style={styles.card_desc}>وُلدت صغار العقاب في أيرلندا لأول مرة منذ أكثر من 200 عام.</Text>
+          <Text style={styles.card_desc}>{props?.description}</Text>
         </View>
       </View>
     </View>

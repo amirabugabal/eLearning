@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
@@ -13,14 +13,44 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import KeywordCard from "../Components/KeyWordCard/KeywordCard";
 import Card from "../Components/Card";
-export default function LessonScreen() {
-  const [activeTab, setActiveTab] = useState(0);
+import { LessonTabs } from "../Utils/constants";
+import { getStoryAudio, getStoryById } from "../Services/LessonServices";
+// import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
+export default function LessonScreen(props) {
+  const [activeTab, setActiveTab] = useState(LessonTabs.STORY);
 
-  const tabs = ["قصة", "امتحان", "كلمات", "نحو"];
+  const tabs = [LessonTabs.STORY, LessonTabs.QUIZ, LessonTabs.KEYWORDS, LessonTabs.GRAMMAR];
+  const [storyParagraph,setStoryParagraph] = useState();
+  const [storySentences, setStorySentences] = useState();
+  const [audioSrc, setAudioSrc] = useState();
+  useEffect(()=>{
+    console.log("props",props?.route?.params?.lessonId)
+    getStoryById(props?.route?.params?.lessonId).then((resp)=>setStoryParagraph(resp?.paragraph))
+    getStoryAudio(props?.route?.params?.lessonId).then((res)=>setAudioSrc(res))
+  },[])
+  useEffect(()=>{
+    if(storyParagraph){
+      setStorySentences(storyParagraph.split(["."]))
+      console.log("sentences", storyParagraph.split(["."]))
+    }
+  },[storyParagraph])
+  // useEffect(()=>{
+  //   switch (activeTab){
+  //     case LessonTabs.STORY:  
+  //     if(!storyParagraph){
+
+  //       getStoryById(props?.lessonId).then(resp=>console.log(resp.paragraph))
+  //     }
+  //     break;
+
+  //   }
+
+
+  // },[activeTab])
 
   const renderContent = () => {
     switch (activeTab) {
-      case 0:
+      case LessonTabs.STORY:
         return (
           <View>
             <View>
@@ -54,22 +84,20 @@ export default function LessonScreen() {
                 color="rgba(0, 0, 0, 0.2)"
               />
             </View>
-            <View>
-              <Text style={{ width: "100%", textAlign: "right" }}>
-                بدأ الاهتمام العالميّ في اللّغة العربيّة يظهر منذ مُنتصف القرن
-                العشرين للميلاد، وتحديداً في عام 1948م عندما قرّرت مُنظّمة
-                اليونسكو اعتماد اللّغة العربيّة كثالث لغةٍ رسميّة لها بعد
-                اللّغتين الإنجليزيّة والفرنسيّة، وفي عام 1960م تمّ الاعتراف
-                رسميّاً في دور اللّغة العربيّة في جعل المنشورات العالميّة أكثر
-                تأثيراً، وفي عام 1973م عُقِدَ المُؤتمر الأوّل لليونسكو في اللّغة
-                العربيّة بناءً على مجموعةٍ من الاقتراحات التي تبنّتها العديد من
-                الدّول العربيّة، وأدّى ذلك إلى اعتماد اللّغة العربيّة كواحدة من
-                اللّغات العالميّة التي تُستخدم في المُؤتمرات الدوليّة.
-              </Text>
+            <View style={{}}>
+            <Text style={{}}>
+                {storySentences?.map((sentence,index)=>(
+                  
+                      <TouchableOpacity key={index}  onPress={()=>{}}>
+                      <Text style={{}}>{sentence}</Text>
+                    </TouchableOpacity>
+
+                ))}
+            </Text>
             </View>
           </View>
         );
-      case 1:
+      case LessonTabs.QUIZ:
         return (
           <View style={{ flexDirection:'column',gap:'40',alignItems: "center" }}>
             <AntDesign name="sound" size={25} color="black" />
@@ -90,9 +118,9 @@ export default function LessonScreen() {
             </View>
           </View>
         );
-      case 2:
+      case LessonTabs.KEYWORDS:
         return <KeywordCard></KeywordCard>;
-      case 3:
+      case LessonTabs.GRAMMAR:
         return <Card></Card>;
       default:
         return null;
@@ -115,9 +143,9 @@ export default function LessonScreen() {
             <TouchableOpacity
               key={index}
               style={[styles.tab, activeTab === index && styles.activeTab]}
-              onPress={() => setActiveTab(index)}
+              onPress={() => setActiveTab(tab)}
             >
-              <Text style={styles.tabText}>{tab}</Text>
+              <Text style={styles.tabText}>{tab.text}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -127,6 +155,7 @@ export default function LessonScreen() {
       <View style={styles.contentContainer}>
         <Text>{renderContent()}</Text>
       </View>
+      {/* <CustomAudioPlayer audioUrl={audioSrc}/> */}
     </View>
   );
 }

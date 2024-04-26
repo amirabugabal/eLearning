@@ -14,6 +14,7 @@ import TrainingKeywords from "../Components/Training/TrainingKeywords";
 import TrainingStack from "./TrainingStack/TrainingStack";
 import { NavigationContainer } from "@react-navigation/native";
 import LessonScreen from "../Screens/LessonScreen";
+import StackNavigation from "./StackNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +31,7 @@ export default function TabNavigation() {
       >
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          component={StackNavigation}
           options={{
             tabBarIcon: ({ color = Colors.primary, size }) => (
               <FontAwesome6 name="compass" size={size} color={color} />
@@ -57,7 +58,7 @@ export default function TabNavigation() {
         />
         <Tab.Screen
           name="Settings"
-          component={LessonScreen}
+          component={SettingsScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="settings-outline" size={size} color={color} />
