@@ -15,6 +15,7 @@ import KeywordCard from "../Components/KeyWordCard/KeywordCard";
 import Card from "../Components/Card";
 import { LessonTabs } from "../Utils/constants";
 import { getStoryAudio, getStoryById } from "../Services/LessonServices";
+import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 // import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 export default function LessonScreen(props) {
   const [activeTab, setActiveTab] = useState(LessonTabs.STORY);
@@ -25,8 +26,17 @@ export default function LessonScreen(props) {
   const [audioSrc, setAudioSrc] = useState();
   useEffect(()=>{
     console.log("props",props?.route?.params?.lessonId)
-    getStoryById(props?.route?.params?.lessonId).then((resp)=>setStoryParagraph(resp?.paragraph))
-    getStoryAudio(props?.route?.params?.lessonId).then((res)=>setAudioSrc(res))
+    getStoryById(props?.route?.params?.lessonId).then((resp)=>{
+      setStoryParagraph(resp?.paragraph)
+      getStoryAudio(resp?.id).then((res)=>{
+          var reader = new FileReader();
+          reader.readAsDataURL(res)
+          reader.onload = () => {
+              setAudioSrc(reader?.result?.split(",")[1])
+
+          }})
+    })
+
   },[])
   useEffect(()=>{
     if(storyParagraph){
@@ -84,16 +94,8 @@ export default function LessonScreen(props) {
                 color="rgba(0, 0, 0, 0.2)"
               />
             </View>
-            <View style={{}}>
-            <Text style={{}}>
-                {storySentences?.map((sentence,index)=>(
-                  
-                      <TouchableOpacity key={index}  onPress={()=>{}}>
-                      <Text style={{}}>{sentence}</Text>
-                    </TouchableOpacity>
-
-                ))}
-            </Text>
+            <View>
+              <Text style={{ width: "100%", textAlign: "right" }}>{storyParagraph}</Text>
             </View>
           </View>
         );
@@ -155,7 +157,7 @@ export default function LessonScreen(props) {
       <View style={styles.contentContainer}>
         <Text>{renderContent()}</Text>
       </View>
-      {/* <CustomAudioPlayer audioUrl={audioSrc}/> */}
+      <CustomAudioPlayer audioUrl={audioSrc}/>
     </View>
   );
 }

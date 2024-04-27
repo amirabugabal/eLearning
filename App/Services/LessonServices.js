@@ -14,8 +14,11 @@ export const getAllLessons = async() =>{
 }
 
 export const getStoryAudio = async(tutorialId)=>{
-    return await fetch(`http://172.20.10.2:8080/tts/paragraph/${tutorialId}`)
-    .then(response => response.data)
+    return await fetch(`http://172.20.10.2:8080/tts/paragraph/${tutorialId}`,{
+        responseType: 'arraybuffer',
+        headers: { 'Accept': '*/*', 'Content-Type': 'audio/mp3' }})
+    .then( response => response.blob())
+
 
     .catch(error => {
       console.error("erroraudio",error);
