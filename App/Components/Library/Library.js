@@ -6,7 +6,7 @@ export default function Library() {
   return (
     
     <View style={{marginTop:50,padding:20,direction: "rtl"}}>
-      <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: '150%'}}>
+      <View style={{display:'flex',flexDirection:'row',alignItems:'center', gap: 20}}>
             <Text style={{color:Colors.black,fontSize:23,fontFamily:'outfit'}}>مكتبتي</Text>
       </View>
       <View style={{marginTop: 50,display:'flex',flexDirection:'column',alignItems:'center',gap:20}}>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '48.8%',
         height: 80,
-        gap: '33%',
+        gap: 10,
         backgroundColor: 'lightgrey',
         borderRadius: 10
     },

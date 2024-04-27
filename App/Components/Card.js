@@ -15,7 +15,7 @@ export default function App() {
     <View style={styles.container}>
       <View style={styles.card_template}>
         
-          <Text style={{fontFamily:'outfitBold',fontSize:'20',textAlign:'right' ,padding:'5%'}}>عود العقابيات</Text>
+          <Text style={{fontFamily:'outfitBold',fontSize:20,textAlign:'right' ,padding:'5%'}}>عود العقابيات</Text>
         
         <View style={styles.text_container}>
           <Text style={styles.card_title}>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     borderColor:Colors.lightPrimary,
-    borderWidth:'1'
+    borderWidth:1
   },
   card_title: {
     color: Colors.black,

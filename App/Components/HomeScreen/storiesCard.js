@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card_template: {
-    width: 280,
+    width: 2801,
     height: 280,
     boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
   },

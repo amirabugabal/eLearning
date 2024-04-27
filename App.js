@@ -37,13 +37,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <TabNavigation />
-      
-      </NavigationContainer>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",

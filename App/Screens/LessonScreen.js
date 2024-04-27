@@ -18,7 +18,7 @@ import { getStoryAudio, getStoryById } from "../Services/LessonServices";
 import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 // import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 export default function LessonScreen(props) {
-  const [activeTab, setActiveTab] = useState(LessonTabs.STORY);
+  const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [LessonTabs.STORY, LessonTabs.QUIZ, LessonTabs.KEYWORDS, LessonTabs.GRAMMAR];
   const [storyParagraph,setStoryParagraph] = useState();
@@ -60,11 +60,11 @@ export default function LessonScreen(props) {
 
   const renderContent = () => {
     switch (activeTab) {
-      case LessonTabs.STORY:
+      case 0:
         return (
-          <View>
+          <View style={{width:'auto'}}>
             <View>
-              <Text
+              {/* <Text
                 style={{
                   color: Colors.black,
                   fontFamily: "outfitBold",
@@ -73,7 +73,7 @@ export default function LessonScreen(props) {
                 }}
               >
                 اكتشاف جديد في اللغة العربية
-              </Text>
+              </Text> */}
             </View>
             <View
               style={{
@@ -94,20 +94,20 @@ export default function LessonScreen(props) {
                 color="rgba(0, 0, 0, 0.2)"
               />
             </View>
-            <View>
-              <Text style={{ width: "100%", textAlign: "right" }}>{storyParagraph}</Text>
+            <View style={{}}>
+              <Text style={{ fontFamily:'outfit',fontSize:20, textAlign: "right" }}>{storyParagraph}</Text>
             </View>
           </View>
         );
-      case LessonTabs.QUIZ:
+      case 1:
         return (
-          <View style={{ flexDirection:'column',gap:'40',alignItems: "center" }}>
+          <View style={{ flexDirection:'column',gap:40,alignItems: "center" }}>
             <AntDesign name="sound" size={25} color="black" />
-            <Text style={{ fontFamily: "outfit", textAlign: "center" , fontSize:'24' }}>
+            <Text style={{ fontFamily: "outfit", textAlign: "center" , fontSize:24 }}>
               عدم اهتمام ___ مجالات البحث العلميّ في استخدام اللّغة العربيّة
               كلغةٍ خاصّة في الأبحاث الأكاديميّة والعلميّة
             </Text>
-            <View style={{ flexDirection: "column",gap:'10', marginTop: 10 }}>
+            <View style={{ flexDirection: "column",gap:10, marginTop: 10 }}>
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>مُعظم</Text>
               </TouchableOpacity>
@@ -120,9 +120,9 @@ export default function LessonScreen(props) {
             </View>
           </View>
         );
-      case LessonTabs.KEYWORDS:
+      case 2:
         return <KeywordCard></KeywordCard>;
-      case LessonTabs.GRAMMAR:
+      case 3:
         return <Card></Card>;
       default:
         return null;
@@ -145,7 +145,7 @@ export default function LessonScreen(props) {
             <TouchableOpacity
               key={index}
               style={[styles.tab, activeTab === index && styles.activeTab]}
-              onPress={() => setActiveTab(tab)}
+              onPress={() => setActiveTab(index)}
             >
               <Text style={styles.tabText}>{tab.text}</Text>
             </TouchableOpacity>
@@ -155,7 +155,7 @@ export default function LessonScreen(props) {
 
       {/* Content */}
       <View style={styles.contentContainer}>
-        <Text>{renderContent()}</Text>
+        {renderContent()}
       </View>
       <CustomAudioPlayer audioUrl={audioSrc}/>
     </View>
@@ -190,10 +190,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "transparent",
+    // backgroundColor:'black'
   },
   activeTab: {
     backgroundColor: Colors.lightPrimary,
-    borderColor: Colors.lightPrimary,
+    borderColor: 'white',
+    borderRadius:20
   },
   tabText: {
     fontSize: 17,
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginTop: "10%",
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
     alignItems: "center",
     padding: 0,
     margin: 0,
@@ -222,7 +224,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 5,
     borderColor:Colors.lightPrimary,
-    borderWidth:'1%',
+    borderWidth:1,
     width:200,
     height:50,
     alignItems:'center'

@@ -12,8 +12,8 @@ function StackNavigation() {
   return (
     
       <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="LessonScreen" component={LessonScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen}  options={{headerShown: false}}/>
+        <Stack.Screen name="LessonScreen" component={LessonScreen} options={{headerBackTitleVisible: false}}/>
       </Stack.Navigator>
     
   );
