@@ -10,21 +10,21 @@ import Colors from "../../Utils/Colors";
 // or any pure javascript modules available in npm
 // import { Card } from "react-native-paper";
 
-export default function App() {
+export default function App(props) {
   return (
     <View style={styles.container}>
       <View style={styles.card_template}>
-        <Image style={styles.card_image} source={pic} />
+        <Image style={styles.card_image} source={{uri: props?.image}} />
         <View style={styles.lock_container}>
           <Entypo name="lock" size={15} color="white" />
         </View>
 
         <View style={styles.text_container}>
           <Text style={styles.card_title}>
-          تعود العقابيات إلى أيرلندا بعد 200 عام
+           {props?.title}
           </Text>
           <Text style={styles.card_desc}>
-          وُلدت صغار العقاب في أيرلندا لأول مرة منذ أكثر من 200 عام.
+          {props?.description}
           </Text>
           <View style={{ display: "flex", flexDirection: "row" ,gap:10,padding:1}}>
             <View style={styles.level_container}>

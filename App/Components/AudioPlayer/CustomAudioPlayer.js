@@ -1,46 +1,56 @@
-import { Audio, InterruptionModeIOS } from "expo-av";
+import { Audio, InterruptionModeAndroid, InterruptionModeIOS } from "expo-av";
 import React, { useEffect, useRef, useState } from "react";
 import { View, Button ,TouchableOpacity} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CustomAudioPlayer = ({ audioUrl }) => {
-  const sound = useRef(new Audio.Sound());
-  const [isPlaying, setIsPlaying] = useState(false);
+        const sound = useRef(new Audio.Sound());
+        const [isPlaying, setIsPlaying] = useState(false);
+        useFocusEffect(
+          React.useCallback(() => {
 
-  useEffect(() => {
-    // Load audio file
-    //   console.log("useEffect", "here")
-    //   const loadAudio = async () => {
-    //     const { audio } = await  Audio.Sound.createAsync(mp3Src)
-    //     console.log("sound", audio)
-    //     setSound(audio);
-    //   };
-
-    //   loadAudio();
-
-    //   Clean up
-    return () => {
-      sound.current.unloadAsync();
-    };
-  }, []);
-
-  const playSound = async () => {
-    //     console.log("playSound", sound)
-    //   if (sound) {
-    //     await sound.playAsync();
-    //     setIsPlaying(true);
-    //   }
-    await Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: false,
-      shouldDuckAndroid: false,
-      interruptionModeIOS: InterruptionModeIOS.DuckOthers,
-    });
-    console.log("AUDIO", audioUrl);
-    const { sound: playbackObject } = await Audio.Sound.createAsync({
-      uri: { audioUrl },
-    });
-    sound.current = playbackObject;
+        
+            return () => {
+              setIsPlaying(false)
+              sound.current.unloadAsync()}
+              ;
+          }, [])
+        );
+      
+        useEffect(() => {
+          // Load audio file
+        //   console.log("useEffect", "here")
+        //   const loadAudio = async () => {
+        //     const { audio } = await  Audio.Sound.createAsync(mp3Src)
+        //     console.log("sound", audio)
+        //     setSound(audio);
+        //   };
+      
+        //   loadAudio();
+      
+        //   Clean up
+          return () => {
+            sound.current.unloadAsync()
+          };
+        }, []);
+      
+        const playSound = async () => {
+        //     console.log("playSound", sound)
+        //   if (sound) {
+        //     await sound.playAsync();
+        //     setIsPlaying(true);
+        //   }
+        await Audio.setAudioModeAsync({
+            playsInSilentModeIOS: true,
+            staysActiveInBackground: false,
+            shouldDuckAndroid: false,
+        interruptionModeIOS: InterruptionModeIOS.DuckOthers,
+        interruptionModeAndroid:InterruptionModeAndroid.DoNotMix,
+      })
+        console.log("AUDIO",audioUrl)
+        const { sound: playbackObject } = await Audio.Sound.createAsync({uri:`data:audio/mp3;base64, ${audioUrl}`}); 
+        sound.current = playbackObject
 
     console.log("playing sound");
 
@@ -48,20 +58,21 @@ const CustomAudioPlayer = ({ audioUrl }) => {
     console.log("checkLoaded", checkLoaded);
     if (checkLoaded.isLoaded === true) {
       await sound.current.playAsync();
+      setIsPlaying(true)
     } else {
     }
   };
 
-  const pauseSound = async () => {
-    if (sound) {
-      await sound.pauseAsync();
-      setIsPlaying(false);
-    }
-  };
+  // const pauseSound = async () => {
+  //   if (sound) {
+  //     await sound.current.pauseAsync();
+  //     setIsPlaying(false);
+  //   }
+  // };
 
   const stopSound = async () => {
     if (sound) {
-      await sound.stopAsync();
+      await sound.current.stopAsync();
       setIsPlaying(false);
     }
   };
@@ -92,7 +103,7 @@ const CustomAudioPlayer = ({ audioUrl }) => {
           // margin:10,
           backgroundColor:'rgba(0,0,0,0.08)',
           padding:1,
-          width:'40%',
+          width:'30%',
           alignSelf:'center',
           borderRadius:50,
           bottom:'5%',
@@ -104,11 +115,11 @@ const CustomAudioPlayer = ({ audioUrl }) => {
           disabled={isPlaying}
           iconName="play"
         />
-        <RoundedButton
+        {/* <RoundedButton
           onPress={pauseSound}
           disabled={!isPlaying}
           iconName="pause"
-        />
+        /> */}
         <RoundedButton
           onPress={stopSound}
           disabled={!isPlaying}

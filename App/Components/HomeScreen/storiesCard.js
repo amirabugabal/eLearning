@@ -15,7 +15,7 @@ export default function App(props) {
   return (
     <View style={styles.container}>
       <View style={styles.card_template}>
-        <Image style={styles.card_image} source={pic} />
+        <Image style={styles.card_image} source={{uri: props?.image}} />
         <View style={styles.level_container}>
           <Text style={styles.card_level}>A1</Text>
         </View>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   card_template: {
-    width: 2801,
+    width: 280,
     height: 280,
     boxShadow: "10px 10px 17px -12px rgba(0,0,0,0.75)",
   },

@@ -25,9 +25,9 @@ export default function HomeScreen() {
     getAllLessons().then((resp) => setLessons(resp));
   }, []);
 
-  handleOnPress = (lessonId) => {
+  handleOnPress = (lessonId,lessonImage) => {
     getLessonById(lessonId).then((resp) => {
-      navigation.navigate("LessonScreen", { lessonId });
+      navigation.navigate("LessonScreen", { lessonId, image: lessonImage });
     });
   };
 
@@ -62,10 +62,11 @@ export default function HomeScreen() {
         >
           {lessons?.length > 0 &&
             lessons?.map((lesson, index) => (
+              !lesson?.paid && 
               // <TouchableOpacity key={index} onPress={() => navigation.navigate("LessonScreen")}>
               <TouchableOpacity
                 key={index}
-                onPress={() => handleOnPress(lesson?.id)}
+                onPress={() => handleOnPress(lesson?.id, 'data:image/png;base64, '+lesson?.image)}
               >
                 <View
                   style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 30 }}
@@ -73,10 +74,11 @@ export default function HomeScreen() {
                   <StoriesCard
                     title={lesson?.title}
                     description={lesson?.description}
+                    image={'data:image/png;base64, '+lesson?.image}
                   />
                 </View>
               </TouchableOpacity>
-            ))}
+              ))}
         </ScrollView>
       </View>
       
@@ -105,8 +107,16 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 10, gap: 12 }}
         >
-          {[...Array(10)].map((_, index) => (
-            <LevelsCard key={index} />
+          {lessons?.length > 0 && lessons?.map((lesson, index) => (
+            lesson?.paid && 
+            <TouchableOpacity
+            key={index}
+            onPress={() => handleOnPress(lesson?.id, 'data:image/png;base64, '+lesson?.image)}
+          >
+            <View>
+            <LevelsCard title={lesson?.title} description={lesson?.description} image={'data:image/png;base64, '+lesson?.image} key={index} onPress={()=>handleOnPress(lesson?.id, 'data:image/png;base64, '+lesson?.image)} />
+            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>

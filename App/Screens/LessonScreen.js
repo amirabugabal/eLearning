@@ -132,7 +132,7 @@ export default function LessonScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.photoContainer}>
-        <Image style={styles.photo} source={pic} resizeMode="cover" />
+        <Image style={styles.photo} source={{uri: props?.route?.params?.image}} resizeMode="cover" />
       </View>
 
       <View style={styles.tabsContainer}>
