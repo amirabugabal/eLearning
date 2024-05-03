@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Touchable,StyleSheet } from "react-native";
+import { View, Text, ScrollView, Touchable, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../Components/HomeScreen/Header";
 import StoriesCard from "../Components/HomeScreen/storiesCard";
@@ -13,14 +13,34 @@ import {
   TouchableWithoutFeedback,
 } from "react-native-gesture-handler";
 import { levels } from "../Utils/constants";
+import { AntDesign } from "@expo/vector-icons";
+
 export default function HomeScreen() {
   const navigation = useNavigation(StackNavigation);
   const [lessons, setLessons] = useState([]);
 
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs = [levels.A1,levels.A2,levels.A3,levels.A4,levels.A5,levels.A6,levels.B1,levels.B2,levels.B3,levels.C1,levels.C2,levels.C3];
-  
+  const tabs = [
+    levels.A1,
+    levels.A2,
+    levels.A3,
+    levels.A4,
+    levels.A5,
+    levels.A6,
+    levels.B1,
+    levels.B2,
+    levels.B3,
+    levels.C1,
+    levels.C2,
+    levels.C3,
+  ];
+    const [selected, setSelected] = useState(false);
+
+    const handlePress = () => {
+      setSelected(!selected);
+    };
+
   useEffect(() => {
     getAllLessons().then((resp) => setLessons(resp));
   }, []);
@@ -79,8 +99,27 @@ export default function HomeScreen() {
             ))}
         </ScrollView>
       </View>
-      
+
       <View style={styles.tabsContainer}>
+        <View style={{alignSelf:'flex-end',paddingRight:'6%',paddingBottom:'3%'}}>
+          <TouchableOpacity
+            style={[
+              styles.hideLearned,
+              { backgroundColor: selected ? Colors.lightPrimary : "transparent" },
+            ]}
+            onPress={handlePress}
+          >
+            <AntDesign name="checkcircleo" size={15} color={selected ? "white" : "black"} />
+            <Text
+              style={[
+                styles.buttonText,
+                { color: selected ? "white" : "black" },
+              ]}
+            >
+              {selected ? "اظهر المتعلم" : "اخفي المتعلم"}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -97,7 +136,6 @@ export default function HomeScreen() {
           ))}
         </ScrollView>
       </View>
-      
 
       <View style={{ marginTop: "5%" }}>
         <ScrollView
@@ -114,14 +152,12 @@ export default function HomeScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
-  
   tabsContainer: {
     alignItems: "center",
-    paddingLeft:20,
-    paddingTop:20,
-    paddingBottom:20
+    paddingLeft: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   tabsContentContainer: {
     flexDirection: "row",
@@ -139,8 +175,8 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: Colors.lightPrimary,
-    borderColor: 'white',
-    borderRadius:20
+    borderColor: "white",
+    borderRadius: 20,
   },
   tabText: {
     fontSize: 17,
@@ -149,7 +185,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginTop: "10%",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: 0,
     margin: 0,
@@ -168,17 +204,29 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
     marginHorizontal: 5,
-    borderColor:Colors.lightPrimary,
-    borderWidth:1,
-    width:200,
-    height:50,
-    alignItems:'center'
+    borderColor: Colors.lightPrimary,
+    borderWidth: 1,
+    width: 200,
+    height: 50,
+    alignItems: "center",
   },
   buttonText: {
     fontFamily: "outfitSemi",
     fontSize: 16,
-    color:Colors.lightPrimary,
-    width:'100%',
-    textAlign:'center'
+    color: Colors.lightPrimary,
+    width: "100%",
+    textAlign: "center",
+  },
+  hideLearned: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.lightPrimary,
+    // Adjust the width of the button here
+    width: 150,
+    height:40
   },
 });

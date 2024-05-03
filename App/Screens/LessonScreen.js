@@ -19,34 +19,42 @@ import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 // import CustomAudioPlayer from "../Components/AudioPlayer/CustomAudioPlayer";
 export default function LessonScreen(props) {
   const [activeTab, setActiveTab] = useState(0);
+  const [selected, setSelected] = useState(false);
 
-  const tabs = [LessonTabs.STORY, LessonTabs.QUIZ, LessonTabs.KEYWORDS, LessonTabs.GRAMMAR];
-  const [storyParagraph,setStoryParagraph] = useState();
+  const handlePress = () => {
+    setSelected(!selected);
+  };
+  const tabs = [
+    LessonTabs.STORY,
+    LessonTabs.QUIZ,
+    LessonTabs.KEYWORDS,
+    LessonTabs.GRAMMAR,
+  ];
+  const [storyParagraph, setStoryParagraph] = useState();
   const [storySentences, setStorySentences] = useState();
   const [audioSrc, setAudioSrc] = useState();
-  useEffect(()=>{
-    console.log("props",props?.route?.params?.lessonId)
-    getStoryById(props?.route?.params?.lessonId).then((resp)=>{
-      setStoryParagraph(resp?.paragraph)
-      getStoryAudio(resp?.id).then((res)=>{
-          var reader = new FileReader();
-          reader.readAsDataURL(res)
-          reader.onload = () => {
-              setAudioSrc(reader?.result?.split(",")[1])
-
-          }})
-    })
-
-  },[])
-  useEffect(()=>{
-    if(storyParagraph){
-      setStorySentences(storyParagraph.split(["."]))
-      console.log("sentences", storyParagraph.split(["."]))
+  useEffect(() => {
+    console.log("props", props?.route?.params?.lessonId);
+    getStoryById(props?.route?.params?.lessonId).then((resp) => {
+      setStoryParagraph(resp?.paragraph);
+      getStoryAudio(resp?.id).then((res) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(res);
+        reader.onload = () => {
+          setAudioSrc(reader?.result?.split(",")[1]);
+        };
+      });
+    });
+  }, []);
+  useEffect(() => {
+    if (storyParagraph) {
+      setStorySentences(storyParagraph.split(["."]));
+      console.log("sentences", storyParagraph.split(["."]));
     }
-  },[storyParagraph])
+  }, [storyParagraph]);
   // useEffect(()=>{
   //   switch (activeTab){
-  //     case LessonTabs.STORY:  
+  //     case LessonTabs.STORY:
   //     if(!storyParagraph){
 
   //       getStoryById(props?.lessonId).then(resp=>console.log(resp.paragraph))
@@ -55,14 +63,13 @@ export default function LessonScreen(props) {
 
   //   }
 
-
   // },[activeTab])
 
   const renderContent = () => {
     switch (activeTab) {
       case 0:
         return (
-          <View style={{width:'auto'}}>
+          <View style={{ width: "auto" }}>
             <View>
               {/* <Text
                 style={{
@@ -95,19 +102,35 @@ export default function LessonScreen(props) {
               />
             </View>
             <View style={{}}>
-              <Text style={{ fontFamily:'outfit',fontSize:20, textAlign: "right" }}>{storyParagraph}</Text>
+              <Text
+                style={{
+                  fontFamily: "outfit",
+                  fontSize: 20,
+                  textAlign: "right",
+                }}
+              >
+                {storyParagraph}
+              </Text>
             </View>
           </View>
         );
       case 1:
         return (
-          <View style={{ flexDirection:'column',gap:40,alignItems: "center" }}>
+          <View
+            style={{ flexDirection: "column", gap: 40, alignItems: "center" }}
+          >
             <AntDesign name="sound" size={25} color="black" />
-            <Text style={{ fontFamily: "outfit", textAlign: "center" , fontSize:24 }}>
+            <Text
+              style={{
+                fontFamily: "outfit",
+                textAlign: "center",
+                fontSize: 24,
+              }}
+            >
               عدم اهتمام ___ مجالات البحث العلميّ في استخدام اللّغة العربيّة
               كلغةٍ خاصّة في الأبحاث الأكاديميّة والعلميّة
             </Text>
-            <View style={{ flexDirection: "column",gap:10, marginTop: 10 }}>
+            <View style={{ flexDirection: "column", gap: 10, marginTop: 10 }}>
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>مُعظم</Text>
               </TouchableOpacity>
@@ -132,6 +155,31 @@ export default function LessonScreen(props) {
   return (
     <View style={styles.container}>
       <View style={styles.photoContainer}>
+        <View style={styles.overlayButtonContainer}>
+          <TouchableOpacity
+            style={[
+              styles.learned,
+              {
+                backgroundColor: selected ? Colors.lightPrimary : "transparent",
+              },
+            ]}
+            onPress={handlePress}
+          >
+            <AntDesign
+              name="checkcircleo"
+              size={15}
+              color={selected ? "white" : "black"}
+            />
+            <Text
+              style={[
+                styles.buttonText,
+                { color: selected ? "white" : "black" },
+              ]}
+            >
+              {selected ? "Learned" : "Not Learned"}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <Image style={styles.photo} source={pic} resizeMode="cover" />
       </View>
 
@@ -154,10 +202,8 @@ export default function LessonScreen(props) {
       </View>
 
       {/* Content */}
-      <View style={styles.contentContainer}>
-        {renderContent()}
-      </View>
-      <CustomAudioPlayer audioUrl={audioSrc}/>
+      <View style={styles.contentContainer}>{renderContent()}</View>
+      <CustomAudioPlayer audioUrl={audioSrc} />
     </View>
   );
 }
@@ -194,8 +240,8 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     backgroundColor: Colors.lightPrimary,
-    borderColor: 'white',
-    borderRadius:20
+    borderColor: "white",
+    borderRadius: 20,
   },
   tabText: {
     fontSize: 17,
@@ -204,7 +250,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     marginTop: "10%",
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: 0,
     margin: 0,
@@ -223,17 +269,39 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 5,
     marginHorizontal: 5,
-    borderColor:Colors.lightPrimary,
-    borderWidth:1,
-    width:200,
-    height:50,
-    alignItems:'center'
+    borderColor: Colors.lightPrimary,
+    borderWidth: 1,
+    width: 200,
+    height: 50,
+    alignItems: "center",
   },
   buttonText: {
     fontFamily: "outfitSemi",
     fontSize: 16,
-    color:Colors.lightPrimary,
-    width:'100%',
-    textAlign:'center'
+    color: Colors.lightPrimary,
+    width: "100%",
+    textAlign: "center",
+  },
+  learned: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.lightPrimary,
+    // Adjust the width of the button here
+    width: 150,
+    height: 40,
+  },
+  overlayButtonContainer: {
+    position: "absolute",
+    top:'30%',
+    right: '3%',
+    zIndex: 1, // Ensures the button appears above the image
   },
 });
+// alignSelf: "flex-end",
+//             paddingRight: "6%",
+//             paddingBottom: "3%",
+//           }

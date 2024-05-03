@@ -26,7 +26,7 @@ export default function TabNavigation() {
           headerShown: false,
           tabBarActiveTintColor: Colors.lightPrimary,
           tabBarIconStyle: { backgroundColor: Colors.lightPrimary },
-          tabBarStyle: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
+          tabBarStyle: { borderTopLeftRadius: 30, borderTopRightRadius: 20 },
         }}
       >
         <Tab.Screen
@@ -58,7 +58,7 @@ export default function TabNavigation() {
         />
         <Tab.Screen
           name="Settings"
-          component={SettingsScreen}
+          component={LessonScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="settings-outline" size={size} color={color} />
